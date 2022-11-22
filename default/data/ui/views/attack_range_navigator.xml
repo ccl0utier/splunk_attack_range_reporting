@@ -252,8 +252,7 @@
           <progress>
             <set token="story_count">$job.resultCount$</set>
           </progress>
-          <query>
-| rename "Technique #" as Technique
+          <query>| rename "Technique #" as Technique
 | lookup enterprise-attack-lookup Technique
 | rename Technique as mitre_attack 
 | stats count by mitre_attack
@@ -272,10 +271,8 @@
 | eval _docs_title = trim(replace(title, "\s+", " "))
 | eval _docs_title = lower(substr(mvjoin(split(lower(_docs_title), " "), "_"),1,1)).substr(mvjoin(split(lower(_docs_title), " "), "_"), 2)
 | eval view="View [ESCU]"
-| eval execute="Execute [ASX]"
-| fields title, view, execute
-| rename title as "Analytic Story", view as "Docs Link", execute as "Run in ASX"
-</query>
+| fields title, view
+| rename title as "Analytic Story", view as "Docs Link"</query>
         </search>
         <option name="count">20</option>
         <option name="dataOverlayMode">none</option>
@@ -289,14 +286,11 @@
           <condition field="Docs Link">
             <link target="_blank">https://research.splunk.com/stories/$row._docs_title$</link>
           </condition>
-          <condition field="Run in ASX">
-            <link target="_blank">/app/Splunk_ASX/execute?form.mode=now&amp;form.time.earliest=-24h@h&amp;form.time.latest=now&amp;form.story=$row._title$</link>
-          </condition>
         </drilldown>
       </table>
     </panel>
     <panel depends="$show_breakdown_tactic$">
-      <title>Detections with possible Atomic tests mapping [$detection_count$]</title>
+      <title>Detections with possible Atomic Tests Mapping [$detection_count$]</title>
       <table>
         <title>*Tactic Name and Technique Name field applies only here</title>
         <search base="SSEAnalytics">
@@ -305,14 +299,14 @@
           </progress>
           <query>| mvexpand mitre_technique 
 | search mitre_technique!="None" mitre_technique!="" mitre_technique!="TA*" 
-| lookup atomic-red-windows-tests "Technique #" AS mitre_technique OUTPUT "Test Name" as atomic_test_name
-| mvexpand mitre_tactic
-| eval atomic_test_exists=if(atomic_test_name != "", "1", "0")
-| eval "Candidate Atomic test"=mitre_technique
-| where atomic_test_exists="1"
+| lookup atomic-red-windows-tests "Technique #" AS mitre_technique OUTPUT "Test Name" as atomic_test_name 
+| eval atomic_test_exists=if(atomic_test_name != "", "1", "0") 
+| where atomic_test_exists="1" 
+| lookup enterprise-attack-lookup Technique as mitre_technique OUTPUT mitre_tactic_display
 | search mitre_technique=$technique_token$ channel=$channel_token$ mitre_tactic=$tactic_name_token$ mitre_technique=$technique_name_token$
-| dedup name, "Candidate Atomic test", displayapp
-| table name, "Candidate Atomic test", mitre_tactic_display, displayapp
+| eval "Candidate Atomic Test"=mitre_technique 
+| dedup name, "Candidate Atomic Test", displayapp 
+| table name, "Candidate Atomic Test", mitre_tactic_display, displayapp 
 | rename name as "Detection", mitre_tactic_display as "MITRE Tactic", displayapp as "Source"</query>
         </search>
         <option name="count">10</option>

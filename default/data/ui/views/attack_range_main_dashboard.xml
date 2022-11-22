@@ -350,15 +350,13 @@
 | eval view_es="View [ES]"
 | eval view_sse="View [SSE]"
 | eval view_docs="View [Docs]"
-| eval execute="Execute [ASX]"
 | rename analytic_story as title
 | eval _docs_title = trim(replace(title, "\s+", " "))
 | eval _docs_title = lower(substr(mvjoin(split(lower(_docs_title), " "), "_"),1,1)).substr(mvjoin(split(lower(_docs_title), " "), "_"), 2)
-| fields title, mitre_attack, detections, _docs_title, view_es, view_docs, execute
+| fields title, mitre_attack, detections, _docs_title, view_es, view_docs
 | eval _title = title
-| rename title as "Analytic Story", mitre_attack as "Att&amp;ck Technique", detections as "Detections", view_es as "ES Link", view_docs as "Docs Link", execute as "Run in ASX"
-| $filterESLink$
-          </query>
+| rename title as "Analytic Story", mitre_attack as "Att&amp;ck Technique", detections as "Detections", view_es as "ES Link", view_docs as "Docs Link"
+| $filterESLink$</query>
           <earliest>$time_token.earliest$</earliest>
           <latest>$time_token.latest$</latest>
           <sampleRatio>1</sampleRatio>
@@ -371,6 +369,10 @@
         <option name="rowNumbers">false</option>
         <option name="totalsRow">false</option>
         <option name="wrap">true</option>
+        <format type="color" field="Detections">
+          <colorPalette type="minMidMax" maxColor="#4FA484" midColor="#62B3B2" minColor="#3C444D"></colorPalette>
+          <scale type="minMidMax" midType="percent" midValue="30"></scale>
+        </format>
         <drilldown>
           <condition field="ES Link">
             <link target="_blank">/app/SplunkEnterpriseSecuritySuite/ess_analytic_story_details?analytic_story=$click.value$</link>
@@ -384,9 +386,6 @@
           <!-- Default link is the documentation -->
           <condition field="Analytic Story">
             <link target="_blank">https://research.splunk.com/stories/$row._docs_title$</link>
-          </condition>
-          <condition field="Run in ASX">
-            <link target="_blank">/app/Splunk_ASX/execute?form.mode=now&amp;form.time.earliest=-24h@h&amp;form.time.latest=now&amp;form.story=$row._title$</link>
           </condition>
         </drilldown>
       </table>
