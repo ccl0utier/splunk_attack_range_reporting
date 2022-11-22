@@ -9,16 +9,15 @@ It is a Splunk app that provides dashboards that enable a user of Splunk Attack 
 ## Compatibility and dependencies
 v1.0.x of the app is compatible with the following:
 
-+ Splunk 8.x.x
-+ [Splunk Analytic Story execution v1.0](https://github.com/splunk/analytic_story_execution)
-+ [Splunk Security Content v1.0.x](https://splunkbase.splunk.com/app/3449/)
-+ [Security Security Essentials v3.1.x](https://splunkbase.splunk.com/app/3435/)
++ Splunk 8.x or later
++ [Splunk Security Content v3.x or later](https://splunkbase.splunk.com/app/3449/)
++ [Security Security Essentials v3.x or later](https://splunkbase.splunk.com/app/3435/)
 
 ### Dependencies
 This application has the following depencencies:
 
++ [Splunk Security Essentials v3.x.x](https://splunkbase.splunk.com/app/3435/) _(Installed with Attack Range)_
 + [Punchcard - Custom Visualization](https://splunkbase.splunk.com/app/3129/)
-+ [Splunk Security Essentials v3.x.x](https://splunkbase.splunk.com/app/3435/)
 + [Status Indicator - Custom Visualization](https://splunkbase.splunk.com/app/3119/)
 + [Sankey Diagram - Custom Visualization](https://splunkbase.splunk.com/app/3112/)
 + [Parallel Coordinates - Custom Visualization](https://splunkbase.splunk.com/app/3137)
