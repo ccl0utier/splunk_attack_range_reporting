@@ -319,18 +319,20 @@
 | table name, "Candidate Atomic test", mitre_tactic_display, displayapp
 | rename name as "Detection", mitre_tactic_display as "MITRE Tactic", displayapp as "Source"</query>
         </search>
-        <option name="count">10</option>
+        <option name="count">20</option>
         <option name="dataOverlayMode">none</option>
         <option name="drilldown">cell</option>
         <option name="percentagesRow">false</option>
-        <option name="refresh.display">progressbar</option>
         <option name="rowNumbers">false</option>
         <option name="totalsRow">false</option>
         <option name="wrap">true</option>
+        <format type="color" field="Source">
+          <colorPalette type="map">{"Enterprise Security Content Update":#206D9C,"Splunk App for Enterprise Security":#189AB4,"Splunk SOAR":#708794,"Splunk Security Essentials":#75E6DA,"Splunk User Behavior Analytics":#D4F1F4}</colorPalette>
+        </format>
       </table>
     </panel>
     <panel depends="$show_init_tactic$">
-      <title>Detections with possible Atomic tests mapping [$detection_count_default_panel$]</title>
+      <title>Detections with possible Atomic Tests Mapping [$detection_count_default_panel$]</title>
       <table>
         <search base="SSEAnalytics">
           <progress>
@@ -347,14 +349,16 @@
 | table name, "Candidate Atomic test", displayapp
 | rename name as "Detection", displayapp as "Source"</query>
         </search>
-        <option name="count">10</option>
+        <option name="count">20</option>
         <option name="dataOverlayMode">none</option>
         <option name="drilldown">none</option>
         <option name="percentagesRow">false</option>
-        <option name="refresh.display">progressbar</option>
         <option name="rowNumbers">false</option>
         <option name="totalsRow">false</option>
         <option name="wrap">true</option>
+        <format type="color" field="Source">
+          <colorPalette type="map">{"Enterprise Security Content Update":#206D9C,"Splunk App for Enterprise Security":#189AB4,"Splunk SOAR":#708794,"Splunk Security Essentials":#75E6DA,"Splunk User Behavior Analytics":#D4F1F4}</colorPalette>
+        </format>
       </table>
     </panel>
   </row>
