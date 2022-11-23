@@ -1,7 +1,17 @@
+<p align="center">
+    <a href="https://github.com/dlamspl/splunk_attack_range_reporting/releases">
+        <img src="https://img.shields.io/github/v/release/dlamspl/splunk_attack_range_reporting" /></a>
+    <a href="https://github.com/dlamspl/splunk_attack_range_reporting/graphs/contributors" alt="Contributors">
+        <img src="https://img.shields.io/github/contributors/dlamspl/splunk_attack_range_reporting" /></a>
+</p>
+
 # Splunk Attack Range Reporting
+
+![Logo](appserver/static/docs/img/logo.png?raw=true "Logo")
+
 A Splunk App for Attack Range Reporting. Provides dashboards for insights on your attack range simulations. 
 
-The Splunk Attack Range repo can be found [here](https://github.com/splunk/attack_range)
+The Splunk Attack Range project can be found [here](https://github.com/splunk/attack_range).
 
 ## What is it ?
 It is a Splunk app that provides dashboards that enable a user of Splunk Attack Range to have better view of what simulations were run, relevant security content from other Splunk apps and overview of the available Atomic Red tests.
